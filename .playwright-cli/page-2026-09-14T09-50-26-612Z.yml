@@ -1,0 +1,96 @@
+- main [ref=e2]:
+  - navigation "Main navigation" [ref=e3]:
+    - link "Divine Wonders Academy home" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e6]:
+        - text: Divine Wonders
+        - emphasis [ref=e7]: Academy
+    - generic [ref=e8]:
+      - link "Our story" [ref=e9] [cursor=pointer]:
+        - /url: "#story"
+      - link "Learning" [ref=e10] [cursor=pointer]:
+        - /url: "#learning"
+      - link "Contact" [ref=e11] [cursor=pointer]:
+        - /url: "#contact"
+    - link "Sign in" [ref=e12] [cursor=pointer]:
+      - /url: /sign-in
+      - text: Sign in ↗
+  - region [ref=e13]:
+    - generic [ref=e16]:
+      - paragraph [ref=e17]: A place to become
+      - heading "Where wonder takes root." [level=1] [ref=e19]: Where wondertakes root.
+      - paragraph [ref=e20]: Divine Wonders Academy is a thoughtful, spirited school for curious minds and kind hearts.
+      - generic [ref=e21]:
+        - link "Discover our world" [ref=e22] [cursor=pointer]:
+          - /url: "#story"
+          - text: Discover our world
+          - generic [aria-hidden] [ref=e23]: ↓
+        - link "Portal sign in" [ref=e24] [cursor=pointer]:
+          - /url: /sign-in
+          - text: Portal sign in ↗
+    - generic [ref=e25]: Grow boldly· live brightly
+    - generic [ref=e40]: Scroll to explore
+  - generic [ref=e42]:
+    - generic [ref=e43]:
+      - generic [ref=e44]: "01"
+      - text: The DWA difference
+    - generic [ref=e45]:
+      - heading "A school shaped by possibility." [level=2] [ref=e46]: A school shapedby possibility.
+      - generic [ref=e47]:
+        - paragraph [ref=e48]: At Divine Wonders Academy, education is more than what happens in a classroom. It is the steady work of helping every student notice their strengths, find their people, and imagine what comes next.
+        - link "Explore our approach" [ref=e49] [cursor=pointer]:
+          - /url: "#learning"
+          - text: ↘
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - strong [ref=e52]: "01"
+        - generic [ref=e53]: Guiding principle
+        - generic [ref=e54]: Wonder
+      - generic [ref=e55]:
+        - strong [ref=e56]: ∞
+        - generic [ref=e57]: Room to grow
+        - generic [ref=e58]: Every day
+      - generic [ref=e59]:
+        - strong [ref=e60]: "1"
+        - generic [ref=e61]: Shared community
+        - generic [ref=e62]: Many voices
+  - generic [ref=e63]:
+    - generic [ref=e64]:
+      - generic [ref=e65]:
+        - generic [ref=e66]: "02"
+        - text: What guides us
+      - heading "Small moments. Lasting impact." [level=2] [ref=e67]: Small moments.Lasting impact.
+    - generic [ref=e68]:
+      - article [ref=e69]:
+        - text: "01"
+        - heading "Curiosity first" [level=3] [ref=e70]
+        - paragraph [ref=e71]: Lessons are built to make questions feel like the beginning of something, never the end.
+        - generic [aria-hidden] [ref=e72]: ↗
+      - article [ref=e73]:
+        - text: "02"
+        - heading "Character always" [level=3] [ref=e74]
+        - paragraph [ref=e75]: We help young people grow with empathy, courage, and a quiet confidence in their own voice.
+        - generic [aria-hidden] [ref=e76]: ↗
+      - article [ref=e77]:
+        - text: "03"
+        - heading "A wider horizon" [level=3] [ref=e78]
+        - paragraph [ref=e79]: Academic foundations meet creative practice, collaboration, and the confidence to look outward.
+        - generic [aria-hidden] [ref=e80]: ↗
+  - generic [ref=e81]:
+    - generic [ref=e82]:
+      - paragraph [ref=e83]: Begin here
+      - heading "Your next chapter starts with wonder." [level=2] [ref=e85]: Your next chapterstarts with wonder.
+    - generic [ref=e86]:
+      - paragraph [ref=e87]: Families, students, and staff can step inside the Divine Wonders community through the school portal.
+      - link "Enter the school portal" [ref=e88] [cursor=pointer]:
+        - /url: /sign-in
+        - text: Enter the school portal
+        - generic [aria-hidden] [ref=e89]: ↗
+  - generic [ref=e90]:
+    - link "Divine Wonders Academy" [ref=e91] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e93]:
+        - text: Divine Wonders
+        - emphasis [ref=e94]: Academy
+    - paragraph [ref=e95]: Learning with purpose. Living with wonder.
+    - generic [ref=e96]: © 2026 DWA

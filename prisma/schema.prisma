@@ -1,0 +1,309 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id       String @id
+  username String @unique
+}
+
+model Student {
+  id          String       @id
+  username    String       @unique
+  name        String
+  surname     String
+  email       String?      @unique
+  phone       String?      @unique
+  address     String
+  img         String?
+  bloodType   String
+  sex         UserSex
+  createdAt   DateTime     @default(now())
+  parentId    String?
+  parent      Parent?      @relation(fields: [parentId], references: [id])
+  classId     Int
+  class       Class        @relation(fields: [classId], references: [id])
+  gradeId     Int
+  grade       Grade        @relation(fields: [gradeId], references: [id])
+  attendances Attendance[]
+  results     Result[]
+  submissions AssignmentSubmission[]
+  birthday    DateTime
+}
+
+model Teacher {
+  id        String    @id
+  username  String    @unique
+  name      String
+  surname   String
+  email     String?   @unique
+  phone     String?   @unique
+  address   String
+  img       String?
+  bloodType String
+  sex       UserSex
+  createdAt DateTime  @default(now())
+  subjects  Subject[]
+  lessons   Lesson[]
+  classes   Class[]
+  birthday  DateTime
+}
+
+model Parent {
+  id        String    @id
+  username  String    @unique
+  name      String
+  surname   String
+  email     String?   @unique
+  phone     String    @unique
+  address   String
+  createdAt DateTime  @default(now())
+  students  Student[]
+}
+
+model Grade {
+  id    Int @id @default(autoincrement())
+  level Int @unique
+
+  students Student[]
+  classess Class[]
+}
+
+model Class {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  capacity Int
+
+  supervisorId  String?
+  supervisor    Teacher?       @relation(fields: [supervisorId], references: [id])
+  lessons       Lesson[]
+  students      Student[]
+  gradeId       Int
+  grade         Grade          @relation(fields: [gradeId], references: [id])
+  events        Event[]
+  announcements Announcement[]
+  group         Group?
+}
+
+model Subject {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  teachers Teacher[]
+  lessons  Lesson[]
+}
+
+model Lesson {
+  id        Int      @id @default(autoincrement())
+  name      String
+  day       Day
+  startTime DateTime
+  endTime   DateTime
+
+  subjectId   Int
+  subject     Subject      @relation(fields: [subjectId], references: [id])
+  classId     Int
+  class       Class        @relation(fields: [classId], references: [id])
+  teacherId   String
+  teacher     Teacher      @relation(fields: [teacherId], references: [id])
+  exams       Exam[]
+  assignments Assignment[]
+  attendances Attendance[]
+}
+
+model Exam {
+  id        Int      @id @default(autoincrement())
+  title     String
+  startTime DateTime
+  endTime   DateTime
+  fileUrl   String?
+  link      String?
+
+  lessonId Int
+  lesson   Lesson   @relation(fields: [lessonId], references: [id])
+  results  Result[]
+}
+
+model Assignment {
+  id            Int            @id @default(autoincrement())
+  title         String
+  description   String?
+  type          AssignmentType @default(EASY_QUESTION)
+  googleFormUrl String?        // URL for Google Form when type is OBJECTIVE
+  startDate     DateTime
+  dueDate       DateTime
+
+  lessonId      Int
+  lesson        Lesson                @relation(fields: [lessonId], references: [id])
+  results       Result[]
+  questions     AssignmentQuestion[]
+  submissions   AssignmentSubmission[]
+}
+
+model AssignmentQuestion {
+  id             Int        @id @default(autoincrement())
+  assignmentId   Int
+  assignment     Assignment @relation(fields: [assignmentId], references: [id])
+  questionText   String
+  type           AssignmentType
+  options        Json?
+  correctAnswer  String?
+  points         Int        @default(1)
+}
+
+model AssignmentSubmission {
+  id           Int              @id @default(autoincrement())
+  assignmentId Int
+  assignment   Assignment       @relation(fields: [assignmentId], references: [id])
+  studentId    String
+  student      Student          @relation(fields: [studentId], references: [id])
+  answers      Json?
+  score        Int?
+  totalPoints  Int?
+  submittedAt  DateTime         @default(now())
+  gradedAt     DateTime?
+  status       SubmissionStatus @default(SUBMITTED)
+
+  @@unique([assignmentId, studentId])
+}
+
+enum SubmissionStatus {
+  SUBMITTED
+  GRADED
+}
+
+model Result {
+  id    Int @id @default(autoincrement())
+  score Int
+  comment String?
+
+  examId       Int?
+  exam         Exam?       @relation(fields: [examId], references: [id])
+  assignmentId Int?
+  assignment   Assignment? @relation(fields: [assignmentId], references: [id])
+  studentId    String
+  student      Student     @relation(fields: [studentId], references: [id])
+}
+
+model Attendance {
+  id      Int      @id @default(autoincrement())
+  date    DateTime
+  present Boolean
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+  lessonId  Int
+  lesson    Lesson  @relation(fields: [lessonId], references: [id])
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  startTime   DateTime
+  endTime     DateTime
+
+  classId Int?
+  class   Class? @relation(fields: [classId], references: [id])
+}
+
+model Announcement {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  date        DateTime
+
+  classId Int?
+  class   Class? @relation(fields: [classId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("info")
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([userId, read])
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  senderId   String
+  receiverId String
+  content    String
+  createdAt  DateTime @default(now())
+  readAt     DateTime?
+  senderRole String
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([senderId, receiverId])
+}
+
+model Group {
+  id        Int            @id @default(autoincrement())
+  name      String
+  classId   Int            @unique
+  class     Class          @relation(fields: [classId], references: [id])
+  messages  GroupMessage[]
+  createdAt DateTime       @default(now())
+}
+
+model GroupMessage {
+  id         Int      @id @default(autoincrement())
+  groupId    Int
+  group      Group    @relation(fields: [groupId], references: [id])
+  senderId   String
+  senderName String
+  senderRole String
+  content    String
+  createdAt  DateTime @default(now())
+
+  @@index([groupId])
+}
+
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  title     String?
+  createdAt DateTime @default(now())
+}
+
+
+enum UserSex {
+  MALE
+  FEMALE
+}
+
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+}
+
+enum AssignmentType {
+  EASY_QUESTION
+  OBJECTIVE
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  action      String
+  userId      String
+  performedBy String
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+}

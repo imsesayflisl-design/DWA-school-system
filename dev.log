@@ -1,0 +1,17 @@
+'C:\Users\MANE' is not recognized as an internal or external command,
+operable program or batch file.
+
+> lama-dev-next-dashboard@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 16.7s
+ ○ Compiling /src/middleware ...
+ ✓ Compiled /src/middleware in 5.6s (182 modules)
+ ○ Compiling /[...sign-in] ...
+ ✓ Compiled /[...sign-in] in 28.1s (1002 modules)
+ GET /sign-in 200 in 31527ms
